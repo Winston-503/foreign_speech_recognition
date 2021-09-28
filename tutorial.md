@@ -56,7 +56,7 @@ As a result, you should get the folder with the following files:
 
 Then go to folder where pocketsphinx models are located. In my case (I created virtual enviroment 'venv' with [Anaconda](https://www.anaconda.com/)) this is `C:\Users\USERNAME\anaconda3\envs\venv\Lib\site-packages\speech_recognition\pocketsphinx-data\`.
 
-Here you have to see one folder - `en-US`. Create a folder with the name of the language - `ru-RU` for Russian, `it-IT` for Italian, etc. 
+Here you have to see one folder - `en-US`. Create a folder with the name of the language - `ru-RU` for Russian, `it-IT` for Italian, etc. See [other languages codes here](https://stackoverflow.com/questions/14257598/what-are-language-codes-in-chromes-implementation-of-the-html5-speech-recogniti/14302134#14302134).
 
 Into your folder, copy and rename `.lm` file to `language-model.lm.bin` and `.dic` file to `pronounciation-dictionary.dict`.
 
