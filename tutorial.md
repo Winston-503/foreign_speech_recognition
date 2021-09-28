@@ -25,7 +25,52 @@ After that, you have to be able to use the offline `recognize_sphinx()` method, 
 
 ## Foreign Model Download and Setup 
 
-TODO
+You can [download foreign models for pocketsphinx here](https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/). There are 15 languages availible now.
+
+For some languages, there are several variants of the model, for others - only one. Click on the selected model and after a few seconds it will start downloading. Then unzip it - 
+
+Для некоторых языков доступно несколько вариантов модели, для остальных - только одна. Нажмите на выбранную модель и через несколько секунд она начнёт скачиваться и После разорхивируйте её. With the `tar` and `gz` format, [free 7zip](https://www.7-zip.org/) can help you . If model is downloaded in the `model.tar.gz` format, unzip it twice - first from `model.tar.gz` to `model.tar` and then from `model.tar` to `model`. 
+
+As a result, you should get the folder where the following is located:
+- .lm file, 
+- .dic file, 
+- and other files with and witout extensions.
+
+Then go to folder where pocketsphinx models are located. In my case (I created virtual enviroment 'venv' with [Anaconda](https://www.anaconda.com/)) this is `C:\Users\USERNAME\anaconda3\envs\venv\Lib\site-packages\speech_recognition\pocketsphinx-data\`.
+
+Create folder with name of the language - 'ru-RU' for russian, 'it-IT' for italian etc.
+
+Copy .lm file to `language-model.lm.bin` and .dic file to `pronounciation-dictionary.dict`.
+
+Then create `acoustic-model` folder and copy all files there 
+(feat.params  mdef  means  mixture_weights  noisedict  sendump  transition_matrices  variances).
+
+Folder structure is: 
+
+```
+├───pocketsphinx-data
+│   ├───en-US
+│   │   ...
+│   │   └───acoustic-model
+│   └───ru-RU
+│       │
+│       ├───language-model.lm.bin
+│       ├───pronounciation-dictionary.dict
+│       └───acoustic-model
+│           │
+│           ├───feat.params  
+│           ├───mdef  
+│           ├───means  
+│           ├───mixture_weights  
+│           ├───noisedict  
+│           ├───sendump  
+│           ├───transition_matrices
+│           └───variances
+```
+
+See to know more
+
+https://github.com/Uberi/speech_recognition/issues/192
 
 ## Practical Use
 
