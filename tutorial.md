@@ -1,11 +1,31 @@
-# Free and Offline Foreign Speech Recognition
-## with Python and SpeechRecognition, Pocketsphinx libraries
+# Free and Offline Foreign Speech Recognition with Python, SpeechRecognition and Pocketsphinx
 
-TODO
+## Introduction
+
+In this tutorial, I will show you how to setup [SpeechRecognition](https://pypi.org/project/SpeechRecognition/) and [Pocketsphinx](https://pypi.org/project/pocketsphinx/) libraries to work offline with non-English languages.
+
+If you want to do online speech recognition (you have access to the Internet), you can simply use Google API. This will allow you to work with different languages by just setting the `language` parameter and all you need to do - install *SpeechRecognition* library with `pip install SpeechRecognition`:
+
+```python
+import speech_recognition as sr 
+
+italian_audio = sr.AudioFile('italian_audio.wav')
+r = sr.Recognizer()
+
+with italian_audio as af:
+    audio = r.record(af)
+
+text = r.recognize_google(audio, language='it-IT')
+print(f"Google thinks you said:\n {text}")
+```
+
+Then you can use *Pocketsphinx* library to do offline speech recognition. If you want to do it in English, you just have to install pocketsphinx (see below), but you don't need to download and setup a foreign model.
+
+And, finally, if you want to recognize non-English language offline, you need additionally download and setup a foreign model.
+
+I will try to describe the installation process as detailed as possible because I ran into some difficulties and spent quite a lot of time trying to figure them out. Everything can go smoothly in your case, and I will be only happy for you. But a large number of difficulties and the search for sources of their solution just prompted me to write this article.
 
 ## SpeechRecognition and Pocketsphinx installation
-
-I will describe the installation process in more detail than usual because I ran into some difficulties and spent quite a lot of time trying to figure them out. Everything can go smoothly in your case, and I will be only happy for you. But a large number of difficulties and the search for sources of their solution just prompted me to write this article.
 
 Actually, we have to install one single library with one single pip command - `pip install SpeechRecognition`. Well, things are not so good.
 
