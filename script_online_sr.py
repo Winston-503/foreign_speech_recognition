@@ -57,7 +57,7 @@ def recognize_online(audio_filename, text_filename, language='en-US'):
 def main():
     if len(sys.argv) == 1:  # if parameter wasn't specified
         print('Set filename as a parameter. For example:')
-        print('>>> python foreign_speech_recognition.py filename.wav')
+        print('>>> python script_online_sr.py filename.wav')
         sys.exit()
     elif len(sys.argv) == 2:
         audio_filename = sys.argv[1]
