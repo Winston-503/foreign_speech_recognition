@@ -1,27 +1,40 @@
 # Free and Offline Foreign Speech Recognition
 
-Free and offline foreign (non-English) speech recognition with Python and SpeechRecognition / Pocketsphinx.
+Free and offline foreign (non-English) speech recognition with Python, Google API vosk and SpeechRecognition / Pocketsphinx.
 
 ![preview.jpg](./img/preview.jpg)
 
 ## Setup
 
-Read [these instructions](TODO) to know how to install foreign models if you want to do non-English offline speech recognition.
+Read [these instructions](TODO) to know what library you need to setup and how to do it.
 
-By default, the language parameter is specified to English (`language='en-US'` in 38 line) so you can try it without any additional installation. One library you have to install is [SpeechRecognition](https://pypi.org/project/SpeechRecognition/), you can do it with the simple pip command `pip install SpeechRecognition`.
+- Online speech recognition with Google API:
+  - `pip install SpeechRecognition`
+- Offline speech recognition with vosk:
+  - `pip install vosk`
+  - download [vosk model](https://alphacephei.com/vosk/models), unzip it and specify path to the model in program
+- Offline Speech Recognition with SpeechRecognition and Pocketsphinx:
+  - `pip install SpeechRecognition`
+  - `python -m pip install --upgrade pip setuptools wheel`
+  - `pip install --upgrade pocketsphinx`
+  - download [foreign models for pocketsphinx](https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/), unzip and setup it
 
-See the tutorial above to install [Pocketsphinx](https://pypi.org/project/pocketsphinx/) to do offline speech recognition. If you can work online simply replace `recognize_sphinx()` with `recognize_google()` in 38 line. In this case, you don't need to install Pocketsphinx and download foreign models.
+## Overview Jupyter Notebook
 
-## Practical Use
+See [overview jupyter notebook](https://gitlab.com/Winston-90/foreign_speech_recognition/-/blob/main/speech_recognition_python.ipynb), which contains examples of all methods.
 
-As any python script it can be run with the following command: `python script_name.py parameter1, parameter2 ...`.
+Open it with [jupyter](https://jupyter.org/) or see directly in a browser.
 
-This script has two parameters:
+## Scripts Practical Use 
+
+As any python script any of these tree scripts (`.py` files) can be run with the following command: `python script_name.py parameter1, parameter2 ...`.
+
+Every script has two parameters:
 - first (required) - name of the .wav file to recognize
 - second (optional) - name of the text file to write recognized text. If not specified, uses `first_parameter.txt`
 
 Examples:
-- `python foreign_speech_recognition.py audio.wav` (writes text in `audio.txt`)
-- `python foreign_speech_recognition.py audio.wav audio_outout.txt`
-- `python foreign_speech_recognition.py 'sounds\filename.wav'` (recognize `current_folder\sounds\filename.wav`)
-- `python foreign_speech_recognition.py 'D:\sounds\filename.wav'`
+- `python script_online_sr.py audio.wav` (writes text in `audio.txt`)
+- `python script_online_sr.py audio.wav audio_outout.txt`
+- `python script_vosk.py 'sounds\filename.wav'` (recognize `current_folder\sounds\filename.wav`)
+- `python script_offline_sr.py 'D:\sounds\filename.wav'`
