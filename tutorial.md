@@ -1,10 +1,22 @@
-# Free and Offline Foreign Speech Recognition with Python, SpeechRecognition and Pocketsphinx
+# Free and Offline Foreign Speech Recognition with Python
 
 ## Introduction
 
-In this tutorial, I will show you how to setup [SpeechRecognition](https://pypi.org/project/SpeechRecognition/) and [Pocketsphinx](https://pypi.org/project/pocketsphinx/) libraries to work offline with foreign (non-English) languages.
+In this tutorial, I will show you how to setup Python speech recognition libraries ([vosk](https://pypi.org/project/vosk/), [SpeechRecognition](https://pypi.org/project/SpeechRecognition/) and [Pocketsphinx](https://pypi.org/project/pocketsphinx/)) to work offline with foreign (non-English) languages. 
 
-If you want to do **online speech recognition** (you have access to the Internet), you can simply use Google API. This will allow you to work with different languages by just setting the `language` parameter and all you need to do - install *SpeechRecognition* library with `pip install SpeechRecognition`. Then you can recognize audio with the next code:
+Important! Read the next sentences carfully to now what library you need to setup:
+- If **online speech recognition** is enough for you (you have access to the Internet), use *SpeechRecognition* library with Google API. Go to **Online Speech Recognition with SpeechRecognition** section.
+- If you need **offline speech recognition**, you can install *Vosk* library OR *Pocketsphinx*. And finally, if you want to recognize **foreign (non-English) language offline**, you can use *Vosk* or *Pocketsphinx* with foreign model. Vosk library is easier to setup. Go to **Offline Speech Recognition with Vosk** OR **Offline Speech Recognition with SpeechRecognition and Pocketsphinx** sections.
+
+![speech_recognition_library_selection.jpg](./img/speech_recognition_library_selection.jpg)
+
+So as not to waste your time in this article I will decribe only installation process with minor examples. In the end of each section I will provide you links where you can learn more about speech recognition with particular library.
+
+## Online Speech Recognition with SpeechRecognition
+
+This is the easiest way. If you have access to the Internet, you can simply use Google API. **This also will allow you to work with different languages** by just setting the `language` parameter. 
+
+All you need to do - install *SpeechRecognition* library with `pip install SpeechRecognition`. Then you can recognize audio with the next code:
 
 ```python
 import speech_recognition as sr 
@@ -19,31 +31,68 @@ text = r.recognize_google(audio, language='it-IT')
 print(f"Google thinks you said:\n {text}")
 ```
 
-You can also use *Pocketsphinx* library to do **offline speech recognition**. If you want to do it in English, you just have to install *Pocketsphinx* (see below), but you don't need to download and setup a foreign model.
+More information:
+- [Introduction to Speech Recognition with Python](https://stackabuse.com/introduction-to-speech-recognition-with-python/)
+- [The Ultimate Guide To Speech Recognition With Python](https://realpython.com/python-speech-recognition/)
 
-And, finally, if you want to recognize **foreign (non-English) language offline**, you need additionally download and setup a foreign model.
+## Offline Speech Recognition with Vosk
 
-I will try to describe the installation process as detailed as possible because I ran into some difficulties and spent quite a lot of time trying to figure them out. Everything can go smoothly in your case, and I will be only happy for you. But a large number of difficulties and the search for sources of their solution just prompted me to write this article.
+Vosk is offline speech recognition tool and it's easy to setup. First, you need install vosk with pip command - `pip install vosk`. If you have trouble installing, upgrade your pip / Python (see [Installation section on vosk site](https://alphacephei.com/vosk/install)).
 
-## SpeechRecognition and Pocketsphinx installation
+Then you have [to download model](https://alphacephei.com/vosk/models) just simly clicking on it. If your model is not downloading for some reason, copy the link and open it in new window (for some reason it works). 
 
-Actually, we have to install one single library with one single pip command - `pip install SpeechRecognition`. Well, things are not so good.
+TODO gif with downloading
 
-I didn't have any problems with using Google API, but with the offline `recognize_sphinx()` method I got errors.
+The recognition language will depend on the model you download. Then you need unpack model in some folder and you can use it. Vosk models output result in *json* format - this can be confusing for beginners, but allow you do **speech recognition with timestamps**. See GitLab repo for more code comments.
 
-Official [pocketsphinx documentation](https://pypi.org/project/pocketsphinx/) tells to run two commands:
+```python
+import wave
+import json
+from vosk import Model, KaldiRecognizer
+
+wf = wave.open('foreign_audio.wav', "rb")
+model = Model('model')
+rec = KaldiRecognizer(model, wf.getframerate())
+rec.SetWords(True)
+
+results = []
+# recognize speech using vosk model
+while True:
+    data = wf.readframes(4000)
+    if len(data) == 0:
+        break
+    if rec.AcceptWaveform(data):
+        part_result = json.loads(rec.Result())
+        results.append(part_result)
+
+part_result = json.loads(rec.FinalResult())
+results.append(part_result)
+
+# forming a final string from the words
+text = ''
+for r in results:
+    text += r['text'] + ' '
+
+print(f"Vosk thinks you said:\n {text}")
+```
+
+More information:
+- [Vosk site](https://alphacephei.com/vosk/)
+- [Vosk github repo](https://github.com/alphacep/vosk-api)
+
+## Offline Speech Recognition with SpeechRecognition and Pocketsphinx
+
+This is the most difficult way. At least here I got the largest number of errors. However, maybe vosk doesn't support your language, or you have your own reasons.
+
+To use offline `recognize_sphinx()` method in *SpeechRecognition* library you have to install *Pocketsphinx*. Official [pocketsphinx documentation](https://pypi.org/project/pocketsphinx/) tells to run two commands:
 - `python -m pip install --upgrade pip setuptools wheel`
 - `pip install --upgrade pocketsphinx`
 
-I didn't have any problems with the first one, and again I got an error on the second one.
-
-So first I had to install [swing](http://www.swig.org/index.php) for windows, [here's how I did this](https://stackoverflow.com/questions/44504899/installing-pocketsphinx-python-module-command-swig-exe-failed) (note that if you use virtual environment python path will differ).
+I got an error on the second one. so first I had to install [swing](http://www.swig.org/index.php) for windows, [here's how I did this](https://stackoverflow.com/questions/44504899/installing-pocketsphinx-python-module-command-swig-exe-failed) (note that if you use virtual environment python path will differ).
 
 And then update Microsoft C++ Build Tools, [here's how I did this](https://docs.microsoft.com/en-us/answers/questions/136595/error-microsoft-visual-c-140-or-greater-is-require.html).
 
-After that, you have to be able to use the offline `recognize_sphinx()` method, but only with the English language.
-
-## Foreign Model Download and Setup 
+After that, you have to be able to use the offline `recognize_sphinx()` method, but only with the English language. So now you have to download and setup foreign pocketsphinx model.
 
 You can [download foreign models for pocketsphinx here](https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/). There are 15 languages available now.
 
@@ -111,3 +160,5 @@ For example `python foreign_speech_recognition.py audio.wav audio_outout.txt` co
 ## Conclusions
 
 It was the number of difficulties that prompted me to write this article. You may not encounter these problems or encounter others. Anyway, feel free to contact me if you have any problems. Maybe I can help you.
+
+If you are native speaker accuracy can be very good, but if you are not it can be awful.
