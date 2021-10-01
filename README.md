@@ -6,7 +6,7 @@ Free and offline foreign (non-English) speech recognition with Python, Google AP
 
 ## Setup
 
-Read [these instructions](TODO) to know what library you need to setup and how to do it.
+Read [these instructions](https://medium.com/@andimid/offline-foreign-speech-recognition-32d8d63de2dc) to know what library you need to setup and how to do it. They are also available [here](https://gitlab.com/Winston-90/foreign_speech_recognition/-/blob/main/tutorial.md).
 
 - Online speech recognition with Google API:
   - `pip install SpeechRecognition`
