@@ -1,13 +1,13 @@
 class Word:
-    ''' A class representing a word from the json format for vosk speech recognition API '''
+    ''' A class representing a word from the JSON format for vosk speech recognition API '''
 
     def __init__(self, dict):
         '''
         Parameters:
-          dict (dict) dictionary from json, containing:
+          dict (dict) dictionary from JSON, containing:
             conf (float): degree of confidence, from 0 to 1
-            end (float): end time of the pronouncing the word, seconds
-            start (float): start time of the pronouncing the word, seconds
+            end (float): end time of the pronouncing the word, in seconds
+            start (float): start time of the pronouncing the word, in seconds
             word (str): recognized word
         '''
 
