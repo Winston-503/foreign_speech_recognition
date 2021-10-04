@@ -27,6 +27,11 @@ def recongize_vosk(audio_filename, text_filename, model_path='model') -> None:
     wf = wave.open(audio_filename, "rb")
     print(f"'{audio_filename}' file was successfully read")
 
+    # check if audio if mono wav
+    if wf.getnchannels() != 1 or wf.getsampwidth() != 2 or wf.getcomptype() != "NONE":
+        print("Audio file must be WAV format mono PCM.")
+        sys.exit()
+
     print(f"Reading your vosk model '{model_path}'...")
     model = Model(model_path)
     rec = KaldiRecognizer(model, wf.getframerate())
