@@ -2,7 +2,7 @@
 
 Free and offline foreign (non-English) speech recognition with Python, Google API vosk and SpeechRecognition / Pocketsphinx.
 
-![preview.jpg](./img/preview.jpg)
+![foreign_speech_recognition_preview.jpg](./img/foreign_speech_recognition_preview.jpg)
 
 ## Setup
 
