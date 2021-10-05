@@ -2,6 +2,8 @@
 
 Free and offline foreign (non-English) speech recognition with Python, Google API vosk and SpeechRecognition / Pocketsphinx.
 
+For speech recognition with timestamps see [timestamps folder](https://gitlab.com/Winston-90/foreign_speech_recognition/-/tree/main/timestamps).
+
 ![foreign_speech_recognition_preview.jpg](./img/foreign_speech_recognition_preview.jpg)
 
 ## Setup
