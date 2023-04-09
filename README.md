@@ -4,11 +4,11 @@ Free and offline foreign (non-English) speech recognition with Python, Google AP
 
 For speech recognition with timestamps see [timestamps folder](https://gitlab.com/Winston-90/foreign_speech_recognition/-/tree/main/timestamps).
 
-![foreign_speech_recognition_preview.jpg](./img/foreign_speech_recognition_preview.jpg)
+![foreign_speech_recognition_preview.jpg](./img/preview.jpg)
 
 ## Setup
 
-Read [these instructions](https://medium.com/@andimid/offline-foreign-speech-recognition-32d8d63de2dc) to know what library you need to setup and how to do it. They are also available [here](https://gitlab.com/Winston-90/foreign_speech_recognition/-/blob/main/tutorial.md).
+Read instructions in this [Medium article](https://medium.com/@andimid/offline-foreign-speech-recognition-32d8d63de2dc) to know what library you need to set up and how to do it.
 
 - Online speech recognition with Google API:
   - `pip install SpeechRecognition`
