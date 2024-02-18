@@ -27,7 +27,7 @@ See [overview jupyter notebook](https://gitlab.com/Winston-90/foreign_speech_rec
 
 Open it with [jupyter](https://jupyter.org/) or see directly in a browser.
 
-## Scripts Practical Use 
+## Scripts Usage
 
 As any python script any of these tree scripts (`.py` files) can be run with the following command: `python script_name.py parameter1, parameter2 ...`.
 
